@@ -1,4 +1,4 @@
-<img style="float: right" src="images/HU.svg" alt="Hogeschool Utrecht">
+<img align="right" src="images/HU.svg" alt="Hogeschool Utrecht">
 
 
 # Semester 1 Propedeuse
