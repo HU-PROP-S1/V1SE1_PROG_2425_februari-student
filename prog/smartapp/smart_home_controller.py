@@ -13,47 +13,7 @@ import traceback
 # In dit tweede opdracht zal je een applicatie ontwikkelen waarbij je een txt  file leest met
 # allerlei informatie per dag over de temperatuur, vochtigheid, neerslag (in mm), setpoint thermostaat, aantal mensen thuis
 
-# Maak een menuutje met
-# 1. Welke dagen zijn er? (welke dagen+ hoeveel in totaal)
-# 2. Autobereken alles actuatotoren, schrijven naar een json
-# 3. Overschrijf een berekende waarde
-# 4. exit
-
-# aande hand van deze data zullen de volgende smart home systemen aangestuurd moeten worden
-# - cv ketel/warmtepompp (100% aan bij temp. verschil > 20, 0% aan bij verschil <= 0, evenredig ertussen)
-# - ventilatie
-# - bewatering van planten
-# - wasmachine (afh. van zonneopwek)
-
-# Geef ook een mogelijkheid om de automatisch berekende aansturingen van de smart home systemen manueel overschreven kunen worden door de gebruiker.
-# Dit kan door bijv. de gebruiker eerst een datum (bijv. 08-10-2024) en daarna te laten selecteren, daarna een van de systemen, en als laatst de waarmee waarmee te overschrijven.
-# SMART HOME XL TIP: Gebruik van GUI om dit makkelijker te maken
-
-# Het input txt bestand ziet er als volgt uit:
-
-
-'''
-date numPeople tempSetpoint tempOutside precip
-05-10-2024 2 19 8 7
-06-10-2024 2 19 8 7
-07-10-2024 1 19 9 3
-08-10-2024 1 19 11 0
-09-10-2024 1 19 10 3
-10-10-2024 3 21 6 0
-11-10-2024 3 21 4 0
-'''
-
-#Voorbeeld van output txt:
-
-'''
-05-10-2024;50;3;False
-06-10-2024;50;3;False
-07-10-2024;0;2;False
-08-10-2024;0;2;True
-09-10-2024;0;2;False
-10-10-2024;50;4;True
-11-10-2024;50;4;True
-'''
+# Zie Canvas voor de opdracht beschrijving
 
 ################## UITWERKING
 
