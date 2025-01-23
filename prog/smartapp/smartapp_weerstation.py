@@ -47,7 +47,7 @@ def gevoelstemperatuur(temp_celcius, windsnelheid, luchtvochtigheid):
         windsnelheid (float): De windsnelheid in meter per seconde
         luchtvochtigheid (int): luchtvochtigheidspercentage als waarde van 0..100
     Returns:
-        De gevoelstemperatuur in graden Celcius
+        float: de gevoelstemperatuur in graden Celcius
     """
     return
 
