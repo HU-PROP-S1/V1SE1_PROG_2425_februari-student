@@ -84,8 +84,8 @@ def weerrapport(temp_celcius, windsnelheid, luchtvochtigheid):
 def weerstation():
     """
     Het weerstation vraagt de gebruiker de weersinformatie voor 7 dagen in
-    te voeren. Per dag worden temperatuur (in Celsius), windsnelheid (in
-    meter per seconde) en luchtvochtigheid (als geheel percentage van 0..100).
+    te voeren. Per dag worden temperatuur (in Celsius), windsnelheid (in meter
+    per seconde) en luchtvochtigheid (als geheel percentage van 0..100) gevraagd.
 
     Het weerstation print (direct) per ingevoerde dag de temperatuur in Celcius
     en Fahrenheit, het weerrapport (gebruik de gelijknamige functie) en de
