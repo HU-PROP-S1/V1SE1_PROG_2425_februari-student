@@ -29,7 +29,7 @@ def fahrenheit(temp_celsius):
     Args:
         temp_celcius (float): De temperatuur in graden Celsius
     Returns:
-        float: De berekende temperatuur in graden Fahrenheit
+        float: de berekende temperatuur in graden Fahrenheit
     """
     return
 
