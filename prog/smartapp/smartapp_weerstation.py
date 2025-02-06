@@ -58,18 +58,24 @@ def weerrapport(temp_celcius, windsnelheid, luchtvochtigheid):
     windsnelheid en luchtvochtigheid. De gevoelstemperatuur wordt berekend
     met behulp van de functie 'gevoelstemperatuur(..)'.
 
-    Het rapport kent vier varianten:
-        * Als de gevoelsTemperatuur onder nul is en de windsnelheid groter
-        dan 10: 'Het is heel koud en het stormt! Verwarming helemaal aan!'
+    Het rapport kent zes varianten:
 
-        * Als de gevoelstemperatuur tussen 0 en 10 is, en de windsnelheid
-        groter dan 5: 'Het is maar een beetje koud en het waait een beetje,
-        doe de verwarming aan!'
+        * Als de gevoelstemperatuur onder nul is en de windsnelheid is groter dan 10:
+            'Het is heel koud en het stormt! Verwarming helemaal aan!'
 
-        * Als de gevoelstemperatuur tussen 10 en 20 is: 'Heerlijk weer, niet
-        te koud of te warm.'
+        * Als de gevoelstemperatuur onder nul is en de windsnelheid is 10 of lager:
+            'Het is behoorlijk koud! Verwarming aan op de benedenverdieping!'
 
-        * In de overige situaties: 'Warm! Airco aan!'
+        * Als de gevoelstemperatuur tussen 0 (inclusief) en 10 (exclusief) is, en de windsnelheid groter dan 12:
+            'Het is best koud en het waait; verwarming aan en roosters dicht!'
+
+        * Als de gevoelstemperatuur tussen 0 (inclusief) en 10 (exclusief) is, en de windsnelheid 12 of lager:
+            'Het is een beetje koud, elektrische kachel op de benedenverdieping aan!'
+
+        * Als de gevoelstemperatuur tussen 10 (inclusief) en 22 (exclusief) is:
+            'Heerlijk weer, niet te koud of te warm.'
+
+        * In andere gevallen: 'Warm! Airco aan!'
 
     Args:
         temp_celcius (float): De temperatuur in graden Celsius
@@ -173,18 +179,24 @@ def test_weerrapport():
 
     case = collections.namedtuple('case', 'celcius windsnelheid vochtigheid, rapport')
     testcases = [
-        case(0, 15, 80, 'Het is heel koud en het stormt! Verwarming helemaal aan!'),
-        case(-0.1, 11, 50, 'Het is heel koud en het stormt! Verwarming helemaal aan!'),
-        case(0, 10, 100, 'Het is maar een beetje koud en het waait een beetje, doe de verwarming aan!'),
-        case(5, 8, 75, 'Het is maar een beetje koud en het waait een beetje, doe de verwarming aan!'),
-        case(10, 5, 100, 'Heerlijk weer, niet te koud of te warm.'),
-        case(9.9, 6, 80, 'Het is maar een beetje koud en het waait een beetje, doe de verwarming aan!'),
-        case(10, 3, 60, 'Heerlijk weer, niet te koud of te warm.'),
-        case(19.9, 1, 50, 'Heerlijk weer, niet te koud of te warm.'),
-        case(20, 0, 50, 'Warm! Airco aan!'),
-        case(25, 5, 40, 'Warm! Airco aan!'),
-        case(35, 0, 0, 'Warm! Airco aan!'),
-        case(25, 10, 100, 'Heerlijk weer, niet te koud of te warm.')
+        # Als de gevoelstemperatuur onder nul is en de windsnelheid is groter dan 10:
+        case(1, 10.1, 10, 'Het is heel koud en het stormt! Verwarming helemaal aan!'),  # -0.01 gt
+        # Als de gevoelstemperatuur onder nul is en de windsnelheid is 10 of lager:
+        case(0, 10, 10, 'Het is behoorlijk koud! Verwarming aan op de benedenverdieping!'),  # -1.0 gt
+        # Als de gevoelstemperatuur tussen 0 (inclusief) en 10 (exclusief) is, en de windsnelheid groter dan 12:
+        case(3, 20, 15, 'Het is best koud en het waait; verwarming aan en roosters dicht!'),  # 0.0 gt
+        case(13, 21, 15, 'Het is best koud en het waait; verwarming aan en roosters dicht!'),  # 9.85 gt
+        case(13, 12.1, 25, 'Het is best koud en het waait; verwarming aan en roosters dicht!'),  # 9.975 gt
+        # Als de gevoelstemperatuur tussen 0 (inclusief) en 10 (exclusief) is, en de windsnelheid 12 of lager:
+        case(1, 10, 10, 'Het is een beetje koud, elektrische kachel op de benedenverdieping aan!'),  # 0.0 gt
+        case(11, 10, 11, 'Het is een beetje koud, elektrische kachel op de benedenverdieping aan!'),  # 9.9 gt
+        # Als de gevoelstemperatuur tussen 10 (inclusief) en 22 (exclusief) is:
+        case(10, 0, 0, 'Heerlijk weer, niet te koud of te warm.'),  # 10.0 gt
+        case(21.9, 0, 0, 'Heerlijk weer, niet te koud of te warm.'),  # 21.9 gt
+        case(23, 30, 5, 'Heerlijk weer, niet te koud of te warm.'),  # 21.5 gt
+        # In andere gevallen:
+        case(30, 32, 25, 'Warm! Airco aan!'),  # 22.0 gt
+        case(22, 0, 0, 'Warm! Airco aan!'),  # 22.0
     ]
 
     for test in testcases:
