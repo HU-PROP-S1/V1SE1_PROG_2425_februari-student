@@ -38,7 +38,7 @@ def gevoelstemperatuur(temp_celcius, windsnelheid, luchtvochtigheid):
     """
     De gevoelstemperatuur wordt berekend aan de hand van de daadwerkelijke
     temperatuur (temp_celcius), de windsnelheid en de luchtvochtigheid. De
-    formulier hiervoor is:
+    formule hiervoor is:
 
         gevoelstemperatuur = T(C) - luchtvochtigheid / 100 * windsnelheid
 
