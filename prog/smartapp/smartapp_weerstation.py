@@ -216,7 +216,7 @@ def __run_tests():
             print(f"Je functie {func_name} werkt goed!")
 
         print("\nGefeliciteerd! Drie functies zijn getest, en lijken te werken!")
-        print("Let op: de functie weerrapport werd niet getest, controleer goed of deze voldoet aan de opdrachteisen!")
+        print("Let op: de functie weerstation werd niet getest, controleer goed of deze voldoet aan de opdrachteisen!")
         print("Ben je daarmee klaar? Lever dan je werk in op Canvas...")
 
     except AssertionError as e:
