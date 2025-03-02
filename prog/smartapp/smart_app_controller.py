@@ -35,12 +35,12 @@ def overwrite_settings(inputFile, outputFile):
     return
 
 
-def smart_home_controller():
+def smart_app_controller():
   # Zie canvas voor opdracht
   return
 
 def development_code():
-    smart_home_controller()
+    smart_app_controller()
 
 def module_runner():
     development_code()  # Comment deze regel om je 'development_code' uit te schakelen
