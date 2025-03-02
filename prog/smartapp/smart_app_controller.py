@@ -6,7 +6,7 @@ import traceback
 
 ##############################################################
 #           PROJECT SMART APP
-#           SPRINT 2: Smart Home Controller
+#           SPRINT 2: Smart App Controller
 #
 ##############################################################
 
@@ -20,22 +20,24 @@ import traceback
 
 def aantal_dagen(inputFile):
   # Zie canvas voor opdracht
-    pass
+    return 0
    
 
 def auto_bereken(inputFile, outputFile):
   # Zie canvas voor opdracht
-    pass
+  # Deze functie leest van een inputFile, en schrijft naar een outputFile. Er is verder geen return waarde.
+    return
 
 
 def overwrite_settings(inputFile, outputFile):
   # Zie canvas voor opdracht
-    pass
+  # Deze functie leest van een inputFile, en schrijft naar een outputFile. Er is verder geen return waarde.
+    return
 
 
 def smart_home_controller():
   # Zie canvas voor opdracht
-  pass
+  return
 
 def development_code():
     smart_home_controller()
