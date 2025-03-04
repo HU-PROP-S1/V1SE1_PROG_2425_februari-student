@@ -19,24 +19,24 @@ import traceback
 
 
 def aantal_dagen(inputFile):
-  # Zie canvas voor opdracht
+    # Zie canvas voor opdracht
     return 0
    
 
 def auto_bereken(inputFile, outputFile):
-  # Zie canvas voor opdracht
-  # Deze functie leest van een inputFile, en schrijft naar een outputFile. Er is verder geen return waarde.
+    # Zie canvas voor opdracht
+    # Deze functie leest van een inputFile, en schrijft naar een outputFile. Er is verder geen return waarde.
     return
 
 
 def overwrite_settings(inputFile, outputFile):
-  # Zie canvas voor opdracht
-  # Deze functie leest van een inputFile, en schrijft naar een outputFile. Er is verder geen return waarde.
+    # Zie canvas voor opdracht
+    # Deze functie leest van een inputFile, en schrijft naar een outputFile. Zie Canvas voor de mogelijke return waardes.
     return
 
 
 def smart_app_controller():
-  # Zie canvas voor opdracht
+  # Hier komt het menuutje. Zie canvas voor opdracht
   return
 
 def development_code():
