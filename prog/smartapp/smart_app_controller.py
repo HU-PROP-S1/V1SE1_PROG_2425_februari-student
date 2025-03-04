@@ -4,18 +4,19 @@ import collections
 import sys
 import traceback
 
-##############################################################
-#           PROJECT SMART APP
-#           SPRINT 2: Smart App Controller
-#
-##############################################################
+"""
+Propedeuse Semester
+Opdracht SD2: Smart App Controller 
+(c) 2025 Hogeschool Utrecht,
+Hasan Kurt (hasan.kurt@hu.nl)
 
-# In dit tweede opdracht zal je een applicatie ontwikkelen waarbij je een txt  file leest met
-# allerlei informatie per dag over de temperatuur, vochtigheid, neerslag (in mm), setpoint thermostaat, aantal mensen thuis
 
-# Zie Canvas voor de opdracht beschrijving
-
-################## UITWERKING
+Opdracht:
+Werk onderstaande functies uit.
+Voeg commentaar toe om je code toe te lichten.
+Lever je werk in op Canvas als alle tests slagen en 
+de functie smart app controller voldoet aan de opdrachteisen.
+"""
 
 
 def aantal_dagen(inputFile):
