@@ -85,10 +85,10 @@ def __out_of_input_error():
 
 
 def __my_test_file_input():
-    return "smart_home_input_test.txt"
+    return "smart_app_input_test.txt"
 
 def __my_test_file_output():
-    return "smart_home_output_test.txt"
+    return "smart_app_output_test.txt"
 
 def __check_line_in_testfile(line, testfile=__my_test_file_input()):
     with open(testfile, 'r') as dummy_file:
