@@ -30,9 +30,9 @@ def auto_bereken(inputFile, outputFile):
     return
 
 
-def overwrite_settings(inputFile, outputFile):
+def overwrite_settings(outputFile):
     # Zie canvas voor opdracht
-    # Deze functie leest van een inputFile, en schrijft naar een outputFile. Zie Canvas voor de mogelijke return waardes.
+    # Deze functie schrijft naar een outputFile. Zie Canvas voor de mogelijke return waardes.
     return
 
 
@@ -173,7 +173,7 @@ def test_overwrite_settings():
         case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0)),
              ["10-10-2024", "1", "66"], 0, '10-10-2024;66.0;1;True\n'),
         case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0)),
-             ["9-10-2024", "1", "66"], -1, ''),
+             ["09-10-2024", "1", "66"], -1, ''),
         case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0)),
              ["10-10-2024", "42", "66"], -3, '')
     ]
@@ -187,7 +187,7 @@ def test_overwrite_settings():
         builtins.input = lambda prompt="": simulated_input.pop() if len(simulated_input) > 0 else __out_of_input_error()
 
         try:
-            output = function(__my_test_file_input(),__my_test_file_output())
+            output = function(__my_test_file_output())
 
             assert isinstance(output, int), f"Fout: {function.__name__}() geeft {type(output).__name__} in plaats van int. Check evt. {__my_test_file_input()}"
             assert output == test.expected_return_code, f"Fout: {function.__name__}() geeft {output}, maar mogelijke outputs is: {test.expected_return_code}"
@@ -213,8 +213,8 @@ def __run_tests():
             test_function()
             print(f"Je functie {func_name} werkt goed!")
 
-        print("\nGefeliciteerd, alles lijkt te werken!")
-        print("Lever je werk nu in op Canvas...")
+        print("\nGefeliciteerd, 3 van de 4 functies werken goed!")
+        print("Je moet nog de smart_app_controller functie implementeren en die zelf handmatig testen")
 
     except AssertionError as e:
         print(e.args[0])
