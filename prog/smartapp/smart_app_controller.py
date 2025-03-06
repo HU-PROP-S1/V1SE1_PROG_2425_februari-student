@@ -1,6 +1,7 @@
 #Nodig voor testraamwerk
 import builtins
 import collections
+import os
 import sys
 import traceback
 
@@ -22,7 +23,7 @@ de functie smart app controller voldoet aan de opdrachteisen.
 def aantal_dagen(inputFile):
     # Zie canvas voor opdracht
     return 0
-   
+
 
 def auto_bereken(inputFile, outputFile):
     # Zie canvas voor opdracht
@@ -37,11 +38,13 @@ def overwrite_settings(outputFile):
 
 
 def smart_app_controller():
-  # Hier komt het menuutje. Zie canvas voor opdracht
-  return
+    # Hier komt het menuutje. Zie canvas voor opdracht
+    return
+
 
 def development_code():
     smart_app_controller()
+
 
 def module_runner():
     development_code()  # Comment deze regel om je 'development_code' uit te schakelen
@@ -88,8 +91,10 @@ def __out_of_input_error():
 def __my_test_file_input():
     return "smart_app_input_test.txt"
 
+
 def __my_test_file_output():
     return "smart_app_output_test.txt"
+
 
 def __check_line_in_testfile(line, testfile=__my_test_file_input()):
     with open(testfile, 'r') as dummy_file:
@@ -100,14 +105,14 @@ def __check_line_in_testfile(line, testfile=__my_test_file_input()):
     return False
 
 
-def __create_test_file(input_lines, testfile=__my_test_file_input()):
+def __create_test_file(input_lines, item_separator, testfile=__my_test_file_input()):
     print(f"Voor testdoeleinden wordt bestand {testfile} aangemaakt met {len(input_lines)} regels... ", end="")
 
     try:
         with open(testfile, 'w') as dummy_file:
-            print(input_lines)
-            for date, numPeople, tempSetpoint, tempOutside, precip in input_lines:
-                dummy_file.write(f"{date} {numPeople} {tempSetpoint} {tempOutside} {precip}\n")
+            print(input_lines, end="... ")
+            for line_items in input_lines:
+                dummy_file.write(f'{item_separator.join(map(str, line_items))}\n')
     except:
         print(f"\nFout: bestand {testfile} kon niet worden aangemaakt. Python-error:")
         print(traceback.format_exc())
@@ -130,19 +135,14 @@ def test_aantal_dagen():
     testcases = [
         case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', '0', '21', '-10', '0.0')), 1),
         case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'),), 0),
-        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', '0', '21', '-10', '0.0'), ('11-10-2024', '0', '20', '5', '0.0')), 2),
-
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'),
+              ('10-10-2024', '0', '21', '-10', '0.0'), ('11-10-2024', '0', '20', '5', '0.0')), 2),
     ]
 
     for test in testcases:
-        __create_test_file(test.input_lines)
+        __create_test_file(test.input_lines, item_separator=" ")
+        __my_assert_args(function, (__my_test_file_input(),), test.expected)
 
-        try:
-            actual_num_lines = function(__my_test_file_input())
-            expected_output = test.expected
-            assert expected_output == actual_num_lines, f'Expected {expected_output} lines, but got {actual_num_lines}'
-        finally:
-            pass
 
 def test_autobereken():
     function = auto_bereken
@@ -155,31 +155,37 @@ def test_autobereken():
     ]
 
     for test in testcases:
-        __create_test_file(test.input_lines)
+        __create_test_file(test.input_lines, item_separator=" ")
 
-        try:
-            function(__my_test_file_input(),__my_test_file_output())
-            with open(__my_test_file_output()) as output_test_file:
-                all_lines_output = ''.join(output_test_file.readlines())
-                assert all_lines_output == test.expected_output_in_file, 'Verwachte uitvoer van auto_bereken klopt niet'
-        finally:
-            pass
+        args = __my_test_file_input(), __my_test_file_output()
+        argstr = str(args).replace(',)', ')')
+
+        function(*args)
+        assert os.path.exists(__my_test_file_output()), f'Fout: uitvoerbestand {__my_test_file_output()} ontbreekt!'
+
+        with open(__my_test_file_output()) as output_test_file:
+            all_lines_output = ''.join(output_test_file.readlines())
+
+            msg = (f"Aanroepen van {function.__name__}{argstr} resulteert in "
+                   f"'{all_lines_output.encode("unicode_escape").decode("utf-8")}'"
+                   f" in '{__my_test_file_output()}', maar dat moet zijn: "
+                   f"'{test.expected_output_in_file.encode("unicode_escape").decode("utf-8")}'")
+
+            assert all_lines_output == test.expected_output_in_file, msg
+
 
 def test_overwrite_settings():
     function = overwrite_settings
-    case = collections.namedtuple('case', 'input_lines simulated_input expected_return_code expected_output_in_file')
+    case = collections.namedtuple('case', 'input_lines simulated_input expected_return_code possible_output_in_file')
 
     testcases = [
-        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0)),
-             ["10-10-2024", "1", "66"], 0, '10-10-2024;66.0;1;True\n'),
-        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0)),
-             ["09-10-2024", "1", "66"], -1, ''),
-        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0)),
-             ["10-10-2024", "42", "66"], -3, '')
+        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "1", "66"], 0, ['10-10-2024;66.0;1;True\n', '10-10-2024;66;1;True\n']),
+        case((('10-10-2024', 100, 1, True),), ["09-10-2024", "1", "66"], -1, ['10-10-2024;100;1;True\n']),
+        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "42", "66"], -3, ['10-10-2024;100;1;True\n'])
     ]
 
     for test in testcases:
-        __create_test_file(test.input_lines)
+        __create_test_file(test.input_lines, ";", __my_test_file_output())
 
         original_input = builtins.input
         simulated_input = test.simulated_input.copy()
@@ -187,16 +193,25 @@ def test_overwrite_settings():
         builtins.input = lambda prompt="": simulated_input.pop() if len(simulated_input) > 0 else __out_of_input_error()
 
         try:
-            output = function(__my_test_file_output())
+            args = __my_test_file_output(),
+            argstr = str(args).replace(',)', ')')
 
-            assert isinstance(output, int), f"Fout: {function.__name__}() geeft {type(output).__name__} in plaats van int. Check evt. {__my_test_file_input()}"
-            assert output == test.expected_return_code, f"Fout: {function.__name__}() geeft {output}, maar mogelijke outputs is: {test.expected_return_code}"
+            __my_assert_args(function, args, test.expected_return_code)
 
+            with open(__my_test_file_output()) as output_test_file:
+                all_lines_output = ''.join(output_test_file.readlines())
+
+                msg = (f"Aanroepen van {function.__name__}{argstr} resulteert in "
+                       f"'{all_lines_output.encode("unicode_escape").decode("utf-8")}'"
+                       f" in '{__my_test_file_output()}', maar toegestaan is/zijn: {test.possible_output_in_file}")
+
+            assert all_lines_output in test.possible_output_in_file, msg
 
         except AssertionError as ae:
             raise AssertionError(f"{ae.args[0]}\n -> Info: gesimuleerde input voor deze test: {test.simulated_input}.") from ae
         finally:
             builtins.input = original_input
+
 
 def __run_tests():
     """ Test alle functies. """
