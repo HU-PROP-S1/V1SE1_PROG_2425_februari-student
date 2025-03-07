@@ -195,9 +195,24 @@ def test_autobereken():
 
     case = collections.namedtuple('case', 'input_lines expected_output_in_file')
     testcases = [
-        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0)), '10-10-2024;100;1;True\n'),
-        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, 17, 0.0)), '10-10-2024;0;1;True\n'),
-        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0), ('11-10-2024', 0, 21, 6, 10.0)), '10-10-2024;100;1;True\n11-10-2024;50;1;False\n')
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0)),
+             '10-10-2024;100;1;True\n'),
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, 17, 0.0)),
+             '10-10-2024;0;1;True\n'),
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, 11, 0.0)),
+             '10-10-2024;50;1;True\n'),
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, 10, 0.0)),
+             '10-10-2024;50;1;True\n'),
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, 2, 0.0)),
+             '10-10-2024;50;1;True\n'),
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, 1, 0.0)),
+             '10-10-2024;100;1;True\n'),
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 5, 21, 1, 0.0)),
+             '10-10-2024;100;4;True\n'),
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 3, 21, 1, 0.0)),
+             '10-10-2024;100;4;True\n'),
+        case((('date', 'numPeople', 'tempSetpoint', 'tempOutside', 'precip'), ('10-10-2024', 0, 21, -10, 0.0),
+              ('11-10-2024', 0, 21, 6, 10.0)), '10-10-2024;100;1;True\n11-10-2024;50;1;False\n')
     ]
 
     for test in testcases:
@@ -225,9 +240,15 @@ def test_overwrite_settings():
     case = collections.namedtuple('case', 'input_lines simulated_input expected_return_code possible_output_in_file')
 
     testcases = [
-        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "1", "66"], 0, ['10-10-2024;66.0;1;True\n', '10-10-2024;66;1;True\n']),
+        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "1", "66"], 0,
+             ['10-10-2024;66.0;1;True\n', '10-10-2024;66;1;True\n']),
         case((('10-10-2024', 100, 1, True),), ["09-10-2024", "1", "66"], -1, ['10-10-2024;100;1;True\n']),
-        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "42", "66"], -3, ['10-10-2024;100;1;True\n'])
+        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "42", "66"], -3, ['10-10-2024;100;1;True\n']),
+        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "4", "66"], -3, ['10-10-2024;100;1;True\n']),
+        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "2", "5"], -3, ['10-10-2024;100;1;True\n']),
+        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "2", "2"], 0, ['10-10-2024;100;2;True\n']),
+        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "3", "2"], -3, ['10-10-2024;100;1;True\n']),
+        case((('10-10-2024', 100, 1, True),), ["10-10-2024", "3", "0"], 0, ['10-10-2024;100;1;False\n']),
     ]
 
     for test in testcases:
