@@ -16,29 +16,75 @@ Opdracht:
 Werk onderstaande functies uit.
 Voeg commentaar toe om je code toe te lichten.
 Lever je werk in op Canvas als alle tests slagen en 
-de functie smart app controller voldoet aan de opdrachteisen.
+de functies smart_app_controller, aantal_dagen, auto_bereken en overwrite_settings voldoen aan de opdrachteisen.
 """
 
 
-def aantal_dagen(inputFile):
-    # Zie canvas voor opdracht
+def aantal_dagen(input_file):
+    """
+    Deze functie leest  het txt bestand wat je meekrijg als argument en geeft het aantal dagen terug wat er in deze file zit.
+
+    Args:
+        input_file (string): Bestandsnaam van de input file
+    Returns:
+        int: Het aantal dagen wat er in de input file is
+    """
     return 0
 
 
-def auto_bereken(inputFile, outputFile):
-    # Zie canvas voor opdracht
-    # Deze functie leest van een inputFile, en schrijft naar een outputFile. Er is verder geen return waarde.
+def auto_bereken(input_file, output_file):
+    """
+        Deze functie leest  het txt bestand wat je meekrijg als argument (input_file)
+        en berekent de waardes van de actuatoren volgens de volgende regels:
+
+    * CV ketel:
+        100% aan als het temperatuur verschil tussen setpoint en buiten groter dan of gelijk is aan 20 graden Celsius
+        50% aan als het temperatuur verschil tussen setpoint en buiten groter dan of gelijk is aan 10 en  kleiner is dan 20  graden Celsius is
+        0% als het verschil kleiner is dan 10
+    * Ventilatie:
+        op stand berekend door: aantal mensen thuis +1, maar maximaal op stand 4
+    * Bewatering van planten:
+        wel/niet aan: planten moeten bewaterd worden als er op een dag minder dan 3 mm aan neerslag valt
+
+    De resultaten worden dan per dag op een regel geschreven naar een file die wordt aangemaakt (output_file),
+    in de formaat dd-mm-yyyy;<waarde-cv>;<waarde-ventilatie>;<waarde-bewatering>.
+    Bijvoorbeeld: 11-12-2024;100;1;True
+
+        Args:
+            input_file (string): Bestandsnaam van de input file
+            output_file (string): Bestandsnaam van de output file
+        Returns:
+            None: De functie heeft geen return waarde
+        """
     return
 
 
 def overwrite_settings(outputFile):
-    # Zie canvas voor opdracht
-    # Deze functie schrijft naar een outputFile. Zie Canvas voor de mogelijke return waardes.
+    '''
+    Automatisch berekende waardes kunnen overschreven worden door de gebruiker. Dit kan door de gebruiker eerst een datum (bijv. 08-10-2024) te laten selecteren, vervolgens een van de geldige systemen (1: CV ketel, 2: ventilatie, 3: bewatering), en als laatst de waarde waarmee het overschreven moet worden, bijv. 70, zodat de CV ketel op 70% wordt gezet). Het output file outputFile wat eerder bij auto_bereken al was aangemaakt, moet vervolgens aangepast worden.
+
+    De functie retourneert de volgende waarden:
+        0, als alles goed gaat
+        -1, als het gekozen datum niet kan worden gevonden
+        -3, als het gekozen systeem niet bestaat (dus, als er een andere waarde van 1, 2 of 3 wordt gegeven), of als de input voor het systeem ongeldig is. Geldige waardes voor de verschillende systemen:
+            Bewatering waarde is '0' of '1' voor resp. uit en aan.  In de output file komt dit als resp. False en True.
+            CV ketel waarde is een geheel getal van minimaal 0 en maximaal 100.
+            Ventilatie systeem waarde is een geheel getal van minimaal 0 en maximaal 4.
+
+
+    Args:
+        output_file (string): Bestandsnaam van de outputfile
+    Returns:
+        int: De berekende return waarde
+    '''
     return
 
 
 def smart_app_controller():
-    # Hier komt het menuutje. Zie canvas voor opdracht
+    '''
+    Binnen deze functie komt het menuutje waarin de gebruiker uitleg krijgt over het programma werkt, en wat de verschillende menu opties zijn.
+    SMART APP XL TIP: Gebruik van GUI om dit makkelijker te maken
+    '''
     return
 
 
